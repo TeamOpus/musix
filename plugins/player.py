@@ -520,12 +520,12 @@ async def group_command_handler(client, m: Message):
         else:
             buttons = [
                 [
-                    InlineKeyboardButton('⚡️ Make Own Bot', url='https://github.com/abirxdhack/TelecastBot'),
-                    InlineKeyboardButton('✅ Join Here', url='https://t.me/ModVip_rm'),
+                    InlineKeyboardButton('⚡️ Make Own Bot', url='https://github.com'),
+                    InlineKeyboardButton('✅ Join Here', url='https://github.com/bisnuray/TelecastBot'),
                 ]
             ]
             await m.reply(
-                "<b>🎶 You can use this bot in this group! To create your own bot, check out the [SOURCE CODE](https://github.com/abirxdhack/TelecastBot) to make your own.</b>",
+                "<b>🎶 You can use this bot in this group! To create your own bot, check out the [SOURCE CODE](https://github.com/Billanath/testvc) to make your own.</b>",
                 quote=True,
                 disable_web_page_preview=False,
                 reply_markup=InlineKeyboardMarkup(buttons)
