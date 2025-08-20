@@ -1923,7 +1923,6 @@ async def update():
             ).start()
 
 
-
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import PeerIdInvalid, ChannelInvalid, UserNotParticipant
 
@@ -1933,7 +1932,6 @@ async def startup_check():
             bot_info = await bot.get_me()
             k = await bot.get_chat_member(int(Config.LOG_GROUP), bot_info.id)
             
-            # Use enum values instead of strings
             if k.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
                 LOGGER.error(f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group.")
                 Config.STARTUP_ERROR = f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group."
@@ -1958,7 +1956,6 @@ async def startup_check():
             Config.STARTUP_ERROR = f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a member of the group./Channel"
             return False
             
-        # Check admin status using enum
         if k.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
             LOGGER.error(f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a admin of the group./Channel")
             Config.STARTUP_ERROR = f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a admin of the group./Channel"
