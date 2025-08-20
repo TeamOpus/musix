@@ -1923,79 +1923,65 @@ async def update():
             ).start()
 
 
-from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors import PeerIdInvalid, ChannelInvalid, UserNotParticipant
+async def check_chat_membership(client, chat_id, user_id, require_admin=False):
+    """
+    Simple membership check function
+    
+    Returns:
+        tuple: (is_member: bool, is_admin: bool, error: str or None)
+    """
+    try:
+        member = await client.get_chat_member(chat_id, user_id)
+        
+        is_member = member.status not in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]
+        is_admin = member.status in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]
+        
+        return is_member, is_admin, None, member
+        
+    except Exception as e:
+        return False, False, str(e), None
 
 async def startup_check():
+    """Simplified startup check using the helper function"""
+    bot_info = await bot.get_me()
+    
+    # LOG_GROUP check
     if Config.LOG_GROUP:
-        try:
-            bot_info = await bot.get_me()
-            k = await bot.get_chat_member(int(Config.LOG_GROUP), bot_info.id)
-            
-            if k.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-                LOGGER.error(f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group.")
-                Config.STARTUP_ERROR = f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group."
-                return False
-                
-        except (PeerIdInvalid, ChannelInvalid, UserNotParticipant) as e:
-            LOGGER.error(f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group. Error: {e}")
-            Config.STARTUP_ERROR = f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group."
+        is_member, _, error, _ = await check_chat_membership(bot, int(Config.LOG_GROUP), bot_info.id)
+        if not is_member:
+            LOGGER.error(f"LOG_GROUP: Bot not a member. Error: {error}")
+            Config.STARTUP_ERROR = "Bot not in LOG_GROUP"
             return False
-            
+    
+    # RECORDING_DUMP check
     if Config.RECORDING_DUMP:
-        try:
-            k = await USER.get_chat_member(Config.RECORDING_DUMP, Config.USER_ID)
-            
-            if k.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-                LOGGER.error(f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a member of the group./Channel")
-                Config.STARTUP_ERROR = f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a member of the group./Channel"
-                return False
-                
-        except (PeerIdInvalid, ChannelInvalid, UserNotParticipant) as e:
-            LOGGER.error(f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a member of the group./Channel. Error: {e}")
-            Config.STARTUP_ERROR = f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a member of the group./Channel"
+        is_member, is_admin, error, _ = await check_chat_membership(USER, Config.RECORDING_DUMP, Config.USER_ID, True)
+        if not is_member:
+            LOGGER.error(f"RECORDING_DUMP: User not a member. Error: {error}")
+            Config.STARTUP_ERROR = "User not in RECORDING_DUMP"
             return False
-            
-        if k.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
-            LOGGER.error(f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a admin of the group./Channel")
-            Config.STARTUP_ERROR = f"RECORDING_DUMP var Found and @{Config.USER_ID} is not a admin of the group./Channel"
+        if not is_admin:
+            LOGGER.error("RECORDING_DUMP: User not admin")
+            Config.STARTUP_ERROR = "User not admin in RECORDING_DUMP"
             return False
-            
+    
+    # CHAT checks
     if Config.CHAT:
-        try:
-            k = await USER.get_chat_member(Config.CHAT, Config.USER_ID)
-            
-            if k.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-                Config.STARTUP_ERROR = f"The user account by which you generated the SESSION_STRING is not found on CHAT ({Config.CHAT})"
-                LOGGER.error(f"The user account by which you generated the SESSION_STRING is not found on CHAT ({Config.CHAT})")
-                return False
-                
-            if k.status not in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER]:
-                LOGGER.warning(f"{Config.USER_ID} is not an admin in {Config.CHAT}, it is recommended to run the user as admin.")
-            elif k.status in [ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER] and hasattr(k, 'can_manage_voice_chats') and not k.can_manage_voice_chats:
-                LOGGER.warning(f"{Config.USER_ID} is not having right to manage voicechat, it is recommended to promote with this right.")
-                
-        except (PeerIdInvalid, ChannelInvalid, UserNotParticipant) as e:
-            Config.STARTUP_ERROR = f"The user account by which you generated the SESSION_STRING is not found on CHAT ({Config.CHAT})"
-            LOGGER.error(f"The user account by which you generated the SESSION_STRING is not found on CHAT ({Config.CHAT})")
+        # User check
+        is_member, is_admin, error, member = await check_chat_membership(USER, Config.CHAT, Config.USER_ID)
+        if not is_member:
+            LOGGER.error(f"CHAT: User not found. Error: {error}")
+            Config.STARTUP_ERROR = "User not in CHAT"
             return False
-            
-        try:
-            bot_info = await bot.get_me()
-            k = await bot.get_chat_member(Config.CHAT, bot_info.id)
-            
-            if k.status in [ChatMemberStatus.LEFT, ChatMemberStatus.BANNED]:
-                Config.STARTUP_ERROR = f"Bot Was Not Found on CHAT, it is recommended to add {Config.BOT_USERNAME} to {Config.CHAT}"
-                LOGGER.warning(f"Bot Was Not Found on CHAT, it is recommended to add {Config.BOT_USERNAME} to {Config.CHAT}")
-            elif k.status != ChatMemberStatus.ADMINISTRATOR:
-                LOGGER.warning(f"{Config.BOT_USERNAME} is not an admin in {Config.CHAT}, it is recommended to run the bot as admin.")
-                
-        except (PeerIdInvalid, ChannelInvalid, UserNotParticipant):
-            Config.STARTUP_ERROR = f"Bot Was Not Found on CHAT, it is recommended to add {Config.BOT_USERNAME} to {Config.CHAT}"
-            LOGGER.warning(f"Bot Was Not Found on CHAT, it is recommended to add {Config.BOT_USERNAME} to {Config.CHAT}")
-            pass
-            
-    if not Config.DATABASE_URI:
-        LOGGER.warning("No DATABASE_URI found. It is recommended to use a database.")
         
+        if not is_admin:
+            LOGGER.warning(f"User not admin in CHAT {Config.CHAT}")
+        
+        # Bot check
+        is_member, is_admin, error, _ = await check_chat_membership(bot, Config.CHAT, bot_info.id)
+        if not is_member:
+            LOGGER.warning(f"Bot not in CHAT {Config.CHAT}")
+        elif not is_admin:
+            LOGGER.warning(f"Bot not admin in CHAT {Config.CHAT}")
+    
     return True
