@@ -372,7 +372,7 @@ Tip: __You can easily change the CHAT config by adding the user account and bot 
 
 3. `BOT_TOKEN` : __[@Botfather](https://telegram.dog/BotFather)__
 
-4. `SESSION_STRING` : __Generate From here [GenerateStringName](https://replit.com/@TheSmartBisnu/getStringName)__
+4. `SESSION_STRING` : __Generate from bot__
 
 5. `CHAT` : __ID of Channel/Group where the bot plays Music.__
 
