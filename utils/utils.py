@@ -1923,10 +1923,20 @@ async def update():
             ).start()
 
 
+
+
+
+
+
+
 async def startup_check():
+    # Get bot info once at the beginning
+    bot_info = await bot.get_me()
+    bot_id = bot_info.id
+    
     if Config.LOG_GROUP:
         try:
-            k=await bot.get_chat_member(int(Config.LOG_GROUP), Config.BOT_USERNAME)
+            k=await bot.get_chat_member(int(Config.LOG_GROUP), bot_id)
         except (ValueError, PeerIdInvalid, ChannelInvalid):
             LOGGER.error(f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group.")
             Config.STARTUP_ERROR=f"LOG_GROUP var Found and @{Config.BOT_USERNAME} is not a member of the group."
@@ -1954,7 +1964,7 @@ async def startup_check():
             LOGGER.error(f"The user account by which you generated the SESSION_STRING is not found on CHAT ({Config.CHAT})")
             return False
         try:
-            k=await bot.get_chat_member(Config.CHAT, Config.BOT_USERNAME)
+            k=await bot.get_chat_member(Config.CHAT, bot_id)
             if not k.status == "administrator":
                 LOGGER.warning(f"{Config.BOT_USERNAME}, is not an admin in {Config.CHAT}, it is recommended to run the bot as admin.")
         except (ValueError, PeerIdInvalid, ChannelInvalid):
