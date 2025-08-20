@@ -33,7 +33,7 @@ class Config:
     YT_COOKIES_PATH = os.path.join(os.getcwd(), "ytcookies", "cookies.txt")
 
     #Stream 
-    STREAM_URL=os.environ.get("STARTUP_STREAM", "https://d2q8p4pe5spbak.cloudfront.net/bpk-tv/9XM/9XM.isml/9XM-audio_208482_und=208000-video=2137600.m3u8")
+    STREAM_URL=os.environ.get("STARTUP_STREAM", "https://www.soundjay.com/misc/sounds/bell-ringing-05.wav")
    
     # Spotify API configuration
     SPOTIFY_CLIENT_ID = "5941bb8af55d4a52a91c5297f616e325"
