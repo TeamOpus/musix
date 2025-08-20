@@ -40,13 +40,13 @@ if Config.DATABASE_URI:
     from utils import db
 
 HOME_TEXT = (
-    "<b>Hi {full_name}! Welcome to this bot...</b>\n"
-    "━━━━━━━━━━━━━━━━━━━━\n"
-    "<b><a href=\"https://t.me/Kalyani_Priya_Darshan_Bot\">KalyaniPriyaDarshan</a> "
-    "is the most complete bot to help you play and stream music effortlessly in Voice Chats. "
-    "Enjoy a new level of engagement by playing music.</b>\n"
-    "━━━━━━━━━━━━━━━━━━━━\n"
-    "<b>Don't forget to join for updates! <a href=\"https://t.me/Modvip_rm\">Join Here</a></b>"
+    "<b>✦ Hi {full_name}! I'm Super Easy Music Bot ✦</b>\n"
+    "─────────────── ✦ ───────────────\n"
+    "<b><a href=\"https://t.me/suzumeMusic_bot?start=true\">Suzume</a> "
+    "lets you play & stream music seamlessly in Voice Chats. "
+    "Experience a new level of fun with effortless music streaming.</b>\n"
+    "─────────────── ✦ ───────────────\n"
+    "<b>📢 Stay updated: <a href=\"https://t.me/BillaCore\">Join Here</a></b>"
 )
 
 admin_filter = filters.create(is_admin)
@@ -73,7 +73,7 @@ async def start(client, message):
                         InlineKeyboardButton("❌Close", callback_data="close"),
                     ],
                     [
-                        InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/Modvip_rm"),
+                        InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/BillaSpace"),
                     ],
                 ]
             )
@@ -134,8 +134,8 @@ async def start(client, message):
         text = HOME_TEXT.format(full_name=full_name)
         buttons = [
             [
-                InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/Modvip_rm"),
-                InlineKeyboardButton("🎸Source Code👨‍💻", url="https://github.com/abirxdhack/TelecastBot"),
+                InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/BillaSpace"),
+                InlineKeyboardButton("🎸Source Code👨‍💻", url="https://github.com/Billanath/testvc"),
             ],
             [
                 InlineKeyboardButton('🎧Help Menu', callback_data='help_main'),
@@ -168,7 +168,7 @@ async def show_help(client, message):
                 InlineKeyboardButton("❌Close", callback_data="close"),
             ],
             [
-                InlineKeyboardButton(f"⚡️Updates Channel⚡️", url='https://t.me/Modvip_rm'),
+                InlineKeyboardButton(f"⚡️Updates Channel⚡️", url='https://t.me/BillaSpace'),
             ],
         ]
         )
@@ -187,7 +187,7 @@ async def show_help(client, message):
     if Config.msg.get('help') is not None:
         await Config.msg['help'].delete()
     Config.msg['help'] = await message.reply_text(
-        "<b>Learn to use the VCPlayer, Showing help menu, Choose from the below options.</b>",
+        "<b>Learn to use the Suzume VCPlayer, Showing help menu, Choose from the below options.</b>",
         quote=False,
         reply_markup=reply_markup,
         disable_web_page_preview=True
@@ -197,15 +197,15 @@ async def show_help(client, message):
 async def repo_(client, message):
     buttons = [
         [
-            InlineKeyboardButton("🎸Source Code⚡️", url="https://github.com/abirxdhack/TelecastBot"),
-            InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/Modvip_rm"),     
+            InlineKeyboardButton("🎸Source Code", url="https://github.com/Billanath/testvc"),
+            InlineKeyboardButton("⚡️Support", url="https://t.me/BillaCore"),     
         ],
         [
-            InlineKeyboardButton("🎞 How to Deploy", url='https://youtu.be/mnWgZMrNe_0'),
+            InlineKeyboardButton("🎞 How to Deploy", url='https://youtu.be/mnWgZMrNe_0000000'),
             InlineKeyboardButton('🗑 Close Menu', callback_data='close'),
         ]
     ]
-    await message.reply("<b>⚡️The source code of SmartVCPlayer is public and can be found at <a href=https://github.com/abirxdhack/TelecastBot>Github.</a> You can deploy your own bot and use in your group.\n\nFeel free to star☀️ the repo if you liked it 🙃.</b>", reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True, quote=False)
+    await message.reply("<b>⚡️The source code of this Suzume Bot will be Available Publically Sooner after Fixing Bugs<a href=https://github.com/Billanath/testvc>Github.</a> You will be able to deploy your own bot and use in your group soon.\n\nFeel free to star☀️ the repo if you liked it 🙃.</b>", reply_markup=InlineKeyboardMarkup(buttons), disable_web_page_preview=True, quote=False)
     await delete_messages([message])
 
 @Client.on_message(filters.command(['restart', 'update', f"restart@{Config.BOT_USERNAME}", f"update@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
@@ -241,7 +241,7 @@ async def get_logs(client, message):
 
     m = await message.reply("<b>⚡️Checking logs, please wait...</b>", quote=False)
     if os.path.exists("botlog.txt"):
-        markup = InlineKeyboardMarkup([[InlineKeyboardButton("Update Channel ✅", url="https://t.me/Modvip_rm")]])
+        markup = InlineKeyboardMarkup([[InlineKeyboardButton("Update Channel ✅", url="https://t.me/BillaCore")]])
         await message.reply_document('botlog.txt', caption="<b>⚡️Here are the Bot Logs📊</b>", reply_markup=markup)
         await m.delete()
     else:
@@ -417,8 +417,4 @@ async def set_heroku_var(client, message):
                 else:
                     await db.edit_config("RESTART", msg)
             config[var] = str(value)
-
-
-
-
 
