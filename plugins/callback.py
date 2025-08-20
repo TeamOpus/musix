@@ -120,7 +120,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             InlineKeyboardButton("❌Close", callback_data="close"),
                         ],
                         [
-                            InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/Modvip_rm"),
+                            InlineKeyboardButton("⚡️Updates Channel⚡️", url="https://t.me/BillaCore"),
                         ],
                     ]
                     )
@@ -154,7 +154,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             if query.message.chat.type != "private" and query.message.reply_to_message.from_user is None:
                 return await query.answer("You cant use scheduling here, since you are an anonymous admin. Schedule from private chat.", show_alert=True)
             if query.message.chat.type != "private" and query.from_user.id != query.message.reply_to_message.from_user.id:
-                return await query.answer("Okda", show_alert=True)
+                return await query.answer("done", show_alert=True)
             data = query.data
             today = datetime.datetime.now(IST)
             smonth=today.strftime("%B")
