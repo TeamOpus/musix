@@ -44,7 +44,7 @@ class Config:
 
     # Database
     DATABASE_URI = os.environ.get("DATABASE_URI", None)
-    DATABASE_NAME = os.environ.get("DATABASE_NAME", "SmartVCPlayer")
+    DATABASE_NAME = os.environ.get("DATABASE_NAME", "Suzume")
 
     # Heroku
     API_KEY = os.environ.get("HEROKU_API_KEY", None)
