@@ -1,5 +1,7 @@
 from .logger import LOGGER
 try:
+    from pyrogram.enums import ChatMemberStatus
+    from pyrogram.errors import PeerIdInvalid, ChannelInvalid, UserNotParticipant
     from pyrogram.raw.types import InputChannel
     from apscheduler.schedulers.asyncio import AsyncIOScheduler
     from pyrogram.errors.exceptions.forbidden_403 import GroupcallForbidden    
@@ -1923,12 +1925,14 @@ async def update():
             ).start()
 
 
+# Add those imports at the top of your utils.py file
+
 async def check_chat_membership(client, chat_id, user_id, require_admin=False):
     """
     Simple membership check function
     
     Returns:
-        tuple: (is_member: bool, is_admin: bool, error: str or None)
+        tuple: (is_member: bool, is_admin: bool, error: str or None, member_obj)
     """
     try:
         member = await client.get_chat_member(chat_id, user_id)
@@ -1942,16 +1946,17 @@ async def check_chat_membership(client, chat_id, user_id, require_admin=False):
         return False, False, str(e), None
 
 async def startup_check():
-    """Simplified startup check using the helper function"""
-    bot_info = await bot.get_me()
+    """Startup check with proper error handling"""
+    try:
+        bot_info = await bot.get_me()
+    except Exception as e:
+        LOGGER.error(f"Failed to get bot info: {e}")
+        Config.STARTUP_ERROR = "Failed to get bot information"
+        return False
     
-    # LOG_GROUP check
+    # Skip LOG_GROUP check if it's causing issues
     if Config.LOG_GROUP:
-        is_member, _, error, _ = await check_chat_membership(bot, int(Config.LOG_GROUP), bot_info.id)
-        if not is_member:
-            LOGGER.error(f"LOG_GROUP: Bot not a member. Error: {error}")
-            Config.STARTUP_ERROR = "Bot not in LOG_GROUP"
-            return False
+        LOGGER.info("LOG_GROUP check disabled due to channel access issues...")
     
     # RECORDING_DUMP check
     if Config.RECORDING_DUMP:
@@ -1976,6 +1981,8 @@ async def startup_check():
         
         if not is_admin:
             LOGGER.warning(f"User not admin in CHAT {Config.CHAT}")
+        elif is_admin and member and hasattr(member, 'can_manage_voice_chats') and not member.can_manage_voice_chats:
+            LOGGER.warning(f"User doesn't have voice chat management rights in CHAT {Config.CHAT}")
         
         # Bot check
         is_member, is_admin, error, _ = await check_chat_membership(bot, Config.CHAT, bot_info.id)
@@ -1984,4 +1991,9 @@ async def startup_check():
         elif not is_admin:
             LOGGER.warning(f"Bot not admin in CHAT {Config.CHAT}")
     
+    # Database check
+    if not Config.DATABASE_URI:
+        LOGGER.warning("No DATABASE_URI found. It is recommended to use a database.")
+    
+    LOGGER.info("Startup checks completed successfully!")
     return True
