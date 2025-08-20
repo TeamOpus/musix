@@ -58,7 +58,7 @@ class Config:
     # Others
     RECORDING_DUMP = os.environ.get("RECORDING_DUMP", False)
     RECORDING_TITLE = os.environ.get("RECORDING_TITLE", False)
-    TIME_ZONE = os.environ.get("TIME_ZONE", "Asia/Dhaka")
+    TIME_ZONE = os.environ.get("TIME_ZONE", "Asia/kolkata")
     IS_VIDEO = is_enabled(os.environ.get("IS_VIDEO", 'True'))
     IS_LOOP = is_enabled(os.environ.get("IS_LOOP", 'True'))
     DELAY = int(os.environ.get("DELAY", '10'))
@@ -108,7 +108,7 @@ class Config:
     IS_ACTIVE = None
     VOLUME = 100
     CURRENT_CALL = None
-    BOT_USERNAME = None
+    BOT_USERNAME = "SuzumeMusic_bot"
     USER_ID = None
 
     if LOG_GROUP:
