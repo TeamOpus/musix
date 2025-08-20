@@ -42,8 +42,8 @@ async def player(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/billaspace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -61,7 +61,7 @@ async def player(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -73,7 +73,7 @@ async def player(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -85,7 +85,7 @@ async def player(client, message):
     # Rest of the code remains the same
     if not Config.CALL_STATUS:
         await message.reply_text(
-            "<b>❌Player is idle, start the player using the below button.</b>",
+            "<b>Player is idle, start the player using the below button.</b>",
             quote=False,
             disable_web_page_preview=True,
             reply_markup=await get_buttons()
@@ -121,8 +121,8 @@ async def skip_track(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -140,7 +140,7 @@ async def skip_track(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -152,7 +152,7 @@ async def skip_track(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -212,8 +212,8 @@ async def pause_playing(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -231,7 +231,7 @@ async def pause_playing(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -243,7 +243,7 @@ async def pause_playing(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -276,8 +276,8 @@ async def resume_playing(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -295,7 +295,7 @@ async def resume_playing(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -307,7 +307,7 @@ async def resume_playing(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -340,8 +340,8 @@ async def set_vol(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -371,7 +371,7 @@ async def set_vol(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -406,8 +406,8 @@ async def set_mute(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -425,7 +425,7 @@ async def set_mute(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -437,7 +437,7 @@ async def set_mute(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -473,8 +473,8 @@ async def set_unmute(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -492,7 +492,7 @@ async def set_unmute(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -504,7 +504,7 @@ async def set_unmute(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -541,8 +541,8 @@ async def replay_playout(client, message):
         if message.chat.id != Config.CHAT:
             buttons = [
                 [
-                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com/abirxdhack/TelecastBot"),
-                    InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm"),
+                    InlineKeyboardButton("🤖 Make Own Bot", url="https://github.com"),
+                    InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace"),
                 ]
             ]
             reply_markup = InlineKeyboardMarkup(buttons)
@@ -560,7 +560,7 @@ async def replay_playout(client, message):
         # Check if the user is an admin or in the Config.ADMINS list
         if message.from_user.id not in administrators and message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
@@ -572,7 +572,7 @@ async def replay_playout(client, message):
         # Handle unauthorized users in a private chat
         if message.from_user.id not in Config.ADMINS:
             reply_markup = InlineKeyboardMarkup([
-                [InlineKeyboardButton("✅ Join Here", url="https://t.me/Modvip_rm")]
+                [InlineKeyboardButton("✅ Join Here", url="https://t.me/BillaSpace")]
             ])
             await client.send_message(
                 chat_id=message.chat.id,
